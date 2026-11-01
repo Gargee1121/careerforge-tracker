@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CareerForge // Internship Tracker & Analytics</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="dashboard-wrapper">
+        <!-- टॉप प्रोफेशनल हेडर -->
+        <header class="main-header">
+            <div class="brand">
+                <h1>💼 CareerForge</h1>
+                <p>Advanced Internship Application & Performance Analytics Dashboard</p>
+            </div>
+            <div class="header-actions">
+                <button id="export-csv" class="action-btn btn-neutral">📊 Export to Excel/CSV</button>
+            </div>
+        </header>
+
+        <!-- नए लाइव एनालिटिक्स कार्ड्स (KPI Metric Counters) -->
+        <section class="analytics-grid">
+            <div class="metric-card card-blue">
+                <div class="metric-label">Total Applications</div>
+                <div id="stat-total" class="metric-value">0</div>
+            </div>
+            <div class="metric-card card-amber">
+                <div class="metric-label">Assessments & Tasks</div>
+                <div id="stat-assess" class="metric-value">0</div>
+            </div>
+            <div class="metric-card card-purple">
+                <div class="metric-label">Interviews Scheduled</div>
+                <div id="stat-interview" class="metric-value">0</div>
+            </div>
+            <div class="metric-card card-green">
+                <div class="metric-label">Offers Received</div>
+                <div id="stat-offers" class="metric-value">0</div>
+            </div>
+        </section>
+
+        <main class="grid-layout">
+            <!-- लेफ्ट साइड: एंट्री फॉर्म पैनल -->
+            <aside class="panel-container">
+                <h2 id="widget-title">📥 Track New Application</h2>
+                <form id="tracker-form" autocomplete="off">
+                    <input type="hidden" id="entry-id">
+                    
+                    <div class="form-element">
+                        <label>Company Entity *</label>
+                        <input type="text" id="company" required placeholder="e.g. Google, Microsoft, Stripe">
+                    </div>
+
+                    <div class="form-element">
+                        <label>Target Designation *</label>
+                        <input type="text" id="role" required placeholder="e.g. Frontend Engineer Intern">
+                    </div>
+
+                    <div class="form-flex-row">
+                        <div class="form-element">
+                            <label>Date Logged</label>
+                            <input type="date" id="date-applied" required>
+                        </div>
+                        <div class="form-element">
+                            <label>Active State</label>
+                            <select id="status">
+                                <option value="Applied">Applied</option>
+                                <option value="Assessment">Assessment</option>
+                                <option value="Interview">Interview</option>
+                                <option value="Offer">Offer</option>
+                                <option value="Rejected">Rejected</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-flex-row">
+                        <div class="form-element">
+                            <label>Interview Round</label>
+                            <input type="datetime-local" id="interview-date">
+                        </div>
+                        <div class="form-element">
+                            <label>Follow-up Milestone</label>
+                            <input type="date" id="followup-date">
+                        </div>
+                    </div>
+
+                    <div class="form-element">
+                        <label>Submission Hyperlink</label>
+                        <input type="url" id="app-link" placeholder="https://company.com">
+                    </div>
+
+                    <div class="form-buttons-cluster">
+                        <button type="submit" id="save-trigger" class="action-btn btn-success">Save to Dashboard</button>
+                        <button type="button" id="abort-trigger" class="action-btn btn-neutral hidden">Cancel Edit</button>
+                    </div>
+                </form>
+            </aside>
+
+            <!-- राइट साइड: फिल्टर, सॉर्टिंग और मेन डेटा ग्रिड -->
+            <section class="panel-container data-display-panel">
+                <div class="filter-toolbar">
+                    <div class="input-search-field">
+                        <input type="text" id="search-query" placeholder="🔍 Search via company name, tech-stack or role index...">
+                    </div>
+                    <div class="select-filter-field">
+                        <select id="filter-state">
+                            <option value="ALL">All Statuses</option>
+                            <option value="Applied">Applied</option>
+                            <option value="Assessment">Assessment</option>
+                            <option value="Interview">Interview</option>
+                            <option value="Offer">Offer</option>
+                            <option value="Rejected">Rejected</option>
+                        </select>
+                    </div>
+                    <div class="select-filter-field">
+                        <select id="sort-order">
+                            <option value="NEWEST">Newest First</option>
+                            <option value="OLDEST">Oldest First</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- रिस्पॉन्सिव टेबल ग्रिड -->
+                <div class="responsive-scroll-container">
+                    <table class="dashboard-table">
+                        <thead>
+                            <tr>
+                                <th>Target Profile</th>
+                                <th>Date Filed</th>
+                                <th>Status Metric</th>
+                                <th>Milestones & Alerts</th>
+                                <th>Gateway</th>
+                                <th>Workspace Controls</th>
+                            </tr>
+                        </thead>
+                        <tbody id="render-target-rows">
+                            <!-- JS के द्वारा डेटा यहाँ रेंडर होगा -->
+                        </tbody>
+                    </table>
+                    
+                    <div id="fallback-empty-state" class="empty-layout hidden">
+                        <div class="icon-placeholder">📂</div>
+                        <p>No tracking records found matching your active filter scope parameters.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
